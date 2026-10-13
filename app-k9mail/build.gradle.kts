@@ -13,8 +13,8 @@ android {
     namespace = "com.fsck.k9"
 
     defaultConfig {
-        applicationId = "com.fsck.k9"
-        testApplicationId = "com.fsck.k9.tests"
+        applicationId = "com.blinkingblue.k9mail"
+        testApplicationId = "com.blinkingblue.k9mail.tests"
 
         versionCode = 39004
         versionName = "26.0"
