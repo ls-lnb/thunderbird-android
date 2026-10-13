@@ -9,7 +9,7 @@
     },
     {
       "key": "disable_font_size_config",
-      "default": true,
+      "default": false,
       "description": "Disables legacy font-size configuration UI."
     },
     {
