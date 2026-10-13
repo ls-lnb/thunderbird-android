@@ -178,6 +178,8 @@ object K9 : KoinComponent {
             isTelemetryEnabled = storage.getBoolean("enableTelemetry", true)
         }
 
+        fontSizes.load(storage)
+
         fundingReminderReferenceTimestamp = storage.getLong("fundingReminderReferenceTimestamp", 0)
         fundingReminderShownTimestamp = storage.getLong("fundingReminderShownTimestamp", 0)
         fundingActivityCounterInMillis = storage.getLong("fundingActivityCounterInMillis", 0)
