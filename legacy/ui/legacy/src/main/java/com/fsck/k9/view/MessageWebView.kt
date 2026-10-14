@@ -41,7 +41,7 @@ class MessageWebView : WebView, KoinComponent, ThunderbirdWebViewSettings {
     override fun configure(config: WebViewConfig) {
         isVerticalScrollBarEnabled = scrollbarDebugConfig.isWebViewScrollBarEnabled
         scrollBarStyle = SCROLLBARS_INSIDE_OVERLAY
-        isScrollbarFadingEnabled = scrollbarDebugConfig.isScrollBarFadingEnabled
+        scrollbarDebugConfig.applyScrollBarFadingTo(this)
         isLongClickable = true
 
         // Do not force a view-specific hardware layer. Long messages can make this WebView taller than the

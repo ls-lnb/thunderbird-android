@@ -73,7 +73,6 @@ class GeneralSettingsDataStore(
             "volume_navigation" -> interactionSettings.useVolumeKeysForNavigation
             "enable_telemetry" -> K9.isTelemetryEnabled
             "scrollbar_debug_webview_enabled" -> scrollbarDebugConfig.isWebViewScrollBarEnabled
-            "scrollbar_debug_fading_enabled" -> scrollbarDebugConfig.isScrollBarFadingEnabled
             else -> defValue
         }
     }
@@ -83,11 +82,6 @@ class GeneralSettingsDataStore(
             "scrollbar_debug_webview_enabled" -> {
                 skipSaveSettings = true
                 scrollbarDebugConfig.isWebViewScrollBarEnabled = value
-            }
-
-            "scrollbar_debug_fading_enabled" -> {
-                skipSaveSettings = true
-                scrollbarDebugConfig.isScrollBarFadingEnabled = value
             }
             "fixed_message_view_theme" -> setFixedMessageViewTheme(value)
             "drawerExpandAllFolder" -> setDrawerExpandAllFolder(drawerExpandAllFolder = value)
@@ -179,6 +173,7 @@ class GeneralSettingsDataStore(
             "quiet_time_starts" -> notificationSettings.quietTimeStarts
             "quiet_time_ends" -> notificationSettings.quietTimeEnds
             "messageview_body_content_type" -> visualSettings.bodyContentType.name
+            "scrollbar_debug_fading_mode" -> scrollbarDebugConfig.scrollBarFadingMode.value
             "message_list_subject_font" -> K9.fontSizes.messageListSubject.toString()
             "message_list_sender_font" -> K9.fontSizes.messageListSender.toString()
             "message_list_date_font" -> K9.fontSizes.messageListDate.toString()
@@ -220,6 +215,10 @@ class GeneralSettingsDataStore(
 
             "background_ops" -> setBackgroundOps(value)
             "messageview_body_content_type" -> setBodyContentType(value)
+            "scrollbar_debug_fading_mode" -> {
+                skipSaveSettings = true
+                scrollbarDebugConfig.scrollBarFadingMode = ScrollbarDebugConfig.ScrollBarFadingMode.fromValue(value)
+            }
             "quiet_time_starts" -> setQuietTimeStarts(quietTimeStarts = value)
             "quiet_time_ends" -> setQuietTimeEnds(quietTimeEnds = value)
             "message_list_subject_font" -> K9.fontSizes.messageListSubject = value.toInt()

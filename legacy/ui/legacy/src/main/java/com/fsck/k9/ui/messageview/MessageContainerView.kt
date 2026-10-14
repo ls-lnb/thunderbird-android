@@ -119,8 +119,8 @@ class MessageContainerView(context: Context, attrs: AttributeSet?) :
         if (!::messageContentView.isInitialized) return
 
         messageContentView.isVerticalScrollBarEnabled = scrollbarDebugConfig.isWebViewScrollBarEnabled
-        messageContentView.isScrollbarFadingEnabled = scrollbarDebugConfig.isScrollBarFadingEnabled
-        findScrollView()?.isScrollbarFadingEnabled = scrollbarDebugConfig.isScrollBarFadingEnabled
+        scrollbarDebugConfig.applyScrollBarFadingTo(messageContentView)
+        findScrollView()?.let { scrollbarDebugConfig.applyScrollBarFadingTo(it) }
     }
 
     private fun findScrollView(): ScrollView? {

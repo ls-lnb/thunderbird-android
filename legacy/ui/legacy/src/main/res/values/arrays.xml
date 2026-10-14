@@ -16,6 +16,18 @@
 
 <resources>
 
+    <string-array name="scrollbar_debug_fading_entries">
+        <item>Don\'t touch (app default — as-is behaviour)</item>
+        <item>Force ON (scrollbars fade when idle)</item>
+        <item>Force OFF (scrollbars always visible)</item>
+    </string-array>
+
+    <string-array name="scrollbar_debug_fading_values">
+        <item>DEFAULT</item>
+        <item>ENABLED</item>
+        <item>DISABLED</item>
+    </string-array>
+
     <string-array name="font_entries">
         <item>@string/font_size_default</item>
         <item>@string/font_size_tiniest</item>

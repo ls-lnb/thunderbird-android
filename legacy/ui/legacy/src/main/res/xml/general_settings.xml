@@ -609,10 +609,13 @@
                 android:summary="@string/scrollbar_debug_webview_summary"
                 android:title="@string/scrollbar_debug_webview_title"
                 />
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="scrollbar_debug_fading_enabled"
-                android:summary="@string/scrollbar_debug_fading_summary"
+            <ListPreference
+                android:defaultValue="DEFAULT"
+                android:dialogTitle="@string/scrollbar_debug_fading_title"
+                android:entries="@array/scrollbar_debug_fading_entries"
+                android:entryValues="@array/scrollbar_debug_fading_values"
+                android:key="scrollbar_debug_fading_mode"
+                android:summary="%s"
                 android:title="@string/scrollbar_debug_fading_title"
                 />
         </PreferenceCategory>
