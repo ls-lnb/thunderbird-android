@@ -4,6 +4,7 @@ import android.app.DownloadManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -21,6 +22,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebView.HitTestResult
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +49,7 @@ import com.fsck.k9.message.html.DisplayHtml
 import com.fsck.k9.ui.R
 import com.fsck.k9.view.MessageWebView
 import com.fsck.k9.view.MessageWebView.OnPageFinishedListener
+import com.fsck.k9.view.ScrollbarDebugConfig
 import com.fsck.k9.view.WebViewConfigProvider
 import com.google.android.material.textview.MaterialTextView
 import net.thunderbird.core.android.contact.ContactIntentHelper
@@ -71,6 +74,11 @@ class MessageContainerView(context: Context, attrs: AttributeSet?) :
     private val linkTextHandler: LinkTextHandler by inject()
     private val featureThemeProvider: FeatureThemeProvider by inject()
     private val attachmentViewInfoMapper: AttachmentViewInfoMapper<Part> by inject()
+    private val scrollbarDebugConfig: ScrollbarDebugConfig by inject()
+
+    private val scrollbarDebugChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
+        applyScrollbarDebugConfig()
+    }
 
     private lateinit var layoutInflater: LayoutInflater
 
@@ -90,6 +98,39 @@ class MessageContainerView(context: Context, attrs: AttributeSet?) :
     @get:JvmName("hasHiddenExternalImages")
     var hasHiddenExternalImages = false
         private set
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        scrollbarDebugConfig.registerListener(scrollbarDebugChangeListener)
+        applyScrollbarDebugConfig()
+    }
+
+    override fun onDetachedFromWindow() {
+        scrollbarDebugConfig.unregisterListener(scrollbarDebugChangeListener)
+        super.onDetachedFromWindow()
+    }
+
+    /**
+     * Debug only: applies the message view scrollbar configuration, including the scrollbar of the outer scroll view.
+     *
+     * See https://github.com/thunderbird/thunderbird-android/issues/10472
+     */
+    private fun applyScrollbarDebugConfig() {
+        if (!::messageContentView.isInitialized) return
+
+        messageContentView.isVerticalScrollBarEnabled = scrollbarDebugConfig.isWebViewScrollBarEnabled
+        messageContentView.isScrollbarFadingEnabled = scrollbarDebugConfig.isScrollBarFadingEnabled
+        findScrollView()?.isScrollbarFadingEnabled = scrollbarDebugConfig.isScrollBarFadingEnabled
+    }
+
+    private fun findScrollView(): ScrollView? {
+        var view = parent
+        while (view is View) {
+            if (view is ScrollView) return view
+            view = view.parent
+        }
+        return null
+    }
 
     public override fun onFinishInflate() {
         super.onFinishInflate()

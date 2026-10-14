@@ -5,6 +5,7 @@ import app.k9mail.feature.telemetry.api.TelemetryManager
 import com.fsck.k9.K9
 import com.fsck.k9.job.K9JobManager
 import com.fsck.k9.ui.base.AppLanguageManager
+import com.fsck.k9.view.ScrollbarDebugConfig
 import net.thunderbird.core.common.action.SwipeAction
 import net.thunderbird.core.common.action.SwipeActions
 import net.thunderbird.core.preference.AnimationPreference
@@ -26,6 +27,7 @@ class GeneralSettingsDataStore(
     private val appLanguageManager: AppLanguageManager,
     private val generalSettingsManager: GeneralSettingsManager,
     private val telemetryManager: TelemetryManager,
+    private val scrollbarDebugConfig: ScrollbarDebugConfig,
 ) : PreferenceDataStore() {
 
     private var skipSaveSettings = false
@@ -70,12 +72,23 @@ class GeneralSettingsDataStore(
             "sensitive_logging" -> debuggingSettings.isSensitiveLoggingEnabled
             "volume_navigation" -> interactionSettings.useVolumeKeysForNavigation
             "enable_telemetry" -> K9.isTelemetryEnabled
+            "scrollbar_debug_webview_enabled" -> scrollbarDebugConfig.isWebViewScrollBarEnabled
+            "scrollbar_debug_fading_enabled" -> scrollbarDebugConfig.isScrollBarFadingEnabled
             else -> defValue
         }
     }
 
     override fun putBoolean(key: String, value: Boolean) {
         when (key) {
+            "scrollbar_debug_webview_enabled" -> {
+                skipSaveSettings = true
+                scrollbarDebugConfig.isWebViewScrollBarEnabled = value
+            }
+
+            "scrollbar_debug_fading_enabled" -> {
+                skipSaveSettings = true
+                scrollbarDebugConfig.isScrollBarFadingEnabled = value
+            }
             "fixed_message_view_theme" -> setFixedMessageViewTheme(value)
             "drawerExpandAllFolder" -> setDrawerExpandAllFolder(drawerExpandAllFolder = value)
             "show_unified_inbox" -> setIsShowUnifiedInbox(value)

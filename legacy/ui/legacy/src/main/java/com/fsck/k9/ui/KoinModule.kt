@@ -13,14 +13,17 @@ import com.fsck.k9.ui.messagelist.MessageListFragmentBridgeContract
 import com.fsck.k9.ui.messageview.LinkTextHandler
 import com.fsck.k9.ui.settings.AboutViewModel
 import com.fsck.k9.ui.share.ShareIntentBuilder
+import com.fsck.k9.view.ScrollbarDebugConfig
 import net.thunderbird.core.common.inject.getList
 import net.thunderbird.core.featureflag.FeatureFlagProvider
 import net.thunderbird.core.featureflag.keys.GeneratedFeatureFlagKey
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val uiModule = module {
+    single { ScrollbarDebugConfig(context = androidContext()) }
     factory {
         DisplayHtmlUiFactory(
             cssClassNameProvider = get(),

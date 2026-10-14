@@ -680,6 +680,11 @@
     <string name="display_preferences">Display</string>
     <string name="global_preferences">Global</string>
     <string name="debug_preferences">Debugging</string>
+    <string name="scrollbar_debug_title">Message view scrollbars (debug)</string>
+    <string name="scrollbar_debug_webview_title">WebView scrollbar</string>
+    <string name="scrollbar_debug_webview_summary">Draw the message WebView\'s own vertical scrollbar, in addition to the outer message scroll view</string>
+    <string name="scrollbar_debug_fading_title">Fade scrollbars</string>
+    <string name="scrollbar_debug_fading_summary">Let scrollbars fade out when idle</string>
     <string name="privacy_preferences">Privacy</string>
     <string name="network_preferences">Network</string>
     <string name="interaction_preferences">Interaction</string>

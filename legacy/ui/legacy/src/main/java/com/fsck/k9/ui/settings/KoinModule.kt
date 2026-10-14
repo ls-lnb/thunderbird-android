@@ -28,6 +28,7 @@ val settingsUiModule = module {
             appLanguageManager = get(),
             generalSettingsManager = get(),
             telemetryManager = get(),
+            scrollbarDebugConfig = get(),
         )
     }
     single(named("SaveSettingsExecutorService")) {
